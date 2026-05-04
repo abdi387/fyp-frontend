@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { User, Mail, Building, Phone, Calendar } from 'lucide-react';
 import StatusBadge from './StatusBadge';
 import { formatDate } from '../../utils/dateUtils';
+import { buildBackendUrl } from '../../utils/fileUrlUtils';
 
 const ProfileCard = ({ user, editable = false, onEdit }) => {
   const [imageError, setImageError] = useState(false);
@@ -14,7 +15,7 @@ const ProfileCard = ({ user, editable = false, onEdit }) => {
     // Base64 data URLs are used as-is
     if (path.startsWith('data:image')) return path;
     if (path.startsWith('http')) return path;
-    if (path.startsWith('/uploads')) return `http://localhost:5001${path}`;
+    if (path.startsWith('/uploads')) return buildBackendUrl(path);
     return path;
   };
 

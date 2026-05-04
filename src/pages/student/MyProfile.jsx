@@ -12,12 +12,13 @@ import LoadingSpinner from '../../components/common/LoadingSpinner';
 import { formatDate } from '../../utils/dateUtils';
 import toast from 'react-hot-toast';
 import { buildSectionNameMap, resolveSectionName } from '../../utils/sectionDisplay';
+import { buildBackendUrl } from '../../utils/fileUrlUtils';
 
 // Helper function to get full image URL
 const getFullImageUrl = (path) => {
   if (!path) return null;
   if (path.startsWith('http')) return path;
-  if (path.startsWith('/uploads')) return `http://localhost:5001${path}`;
+  if (path.startsWith('/uploads')) return buildBackendUrl(path);
   return path;
 };
 

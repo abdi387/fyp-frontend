@@ -1,4 +1,20 @@
-const API_HOST = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
+export const getBackendOrigin = () => {
+  if (/^https?:\/\//i.test(API_BASE_URL)) {
+    return API_BASE_URL.replace(/\/api\/?$/i, '');
+  }
+  return 'http://localhost:5001';
+};
+
+export const buildBackendUrl = (path) => {
+  if (!path) return '';
+  if (/^https?:\/\//i.test(path) || path.startsWith('data:image')) {
+    return path;
+  }
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${getBackendOrigin()}${normalizedPath}`;
+};
 
 export const buildProgressReportFileLink = (fileUrl) => {
   if (!fileUrl) return '';
@@ -6,7 +22,7 @@ export const buildProgressReportFileLink = (fileUrl) => {
     return fileUrl;
   }
   if (fileUrl.startsWith('/uploads/')) {
-    return `${API_HOST}${fileUrl}`;
+    return buildBackendUrl(fileUrl);
   }
-  return `${API_HOST}/uploads/progress-reports/${fileUrl}`;
+  return buildBackendUrl(`/uploads/progress-reports/${fileUrl}`);
 };

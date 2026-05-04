@@ -5,12 +5,13 @@ import { useAuth } from '../../context/AuthContext';
 import { notificationService } from '../../services';
 import NotificationList from '../notifications/NotificationList';
 import { formatLastActive } from '../../utils/dateUtils';
+import { buildBackendUrl } from '../../utils/fileUrlUtils';
 
 // Helper function to get full image URL
 const getFullImageUrl = (path) => {
   if (!path) return null;
   if (path.startsWith('http')) return path;
-  if (path.startsWith('/uploads')) return `http://localhost:5001${path}`;
+  if (path.startsWith('/uploads')) return buildBackendUrl(path);
   return path;
 };
 

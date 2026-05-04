@@ -15,6 +15,9 @@ import {
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+const TEST_ENDPOINT = `${API_BASE_URL.replace(/\/$/i, '')}/test`;
+
 const ServerStatus = () => {
   const [status, setStatus] = useState('checking');
   const [message, setMessage] = useState('');
@@ -28,7 +31,7 @@ const ServerStatus = () => {
     const startTime = Date.now();
     
     try {
-      const response = await axios.get('http://localhost:5001/api/test', { 
+      const response = await axios.get(TEST_ENDPOINT, { 
         timeout: 5000 
       });
       
@@ -219,13 +222,13 @@ const ServerStatus = () => {
                             <div className="pt-2 border-t border-black/10">
                               <p className="text-xs font-medium mb-1">🔍 Check if backend is running:</p>
                               <a 
-                                href="http://localhost:5001/api/test" 
+                                href={TEST_ENDPOINT} 
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 className="text-xs text-blue-600 hover:underline flex items-center gap-1"
                               >
                                 <Terminal className="w-3 h-3" />
-                                http://localhost:5001/api/test
+                                {TEST_ENDPOINT}
                               </a>
                             </div>
 
@@ -275,7 +278,7 @@ const ServerStatus = () => {
                     </button>
                     {status === 'offline' && (
                       <button
-                        onClick={() => window.open('http://localhost:5001/api/test', '_blank')}
+                        onClick={() => window.open(TEST_ENDPOINT, '_blank')}
                         className="text-xs px-3 py-1.5 bg-white rounded-lg shadow-sm hover:shadow-md transition-all border border-gray-200"
                       >
                         Test Manually

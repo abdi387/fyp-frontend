@@ -10,13 +10,14 @@ import ProfileCard from '../../components/common/ProfileCard';
 import Modal from '../../components/common/Modal';
 import PageContainer from '../../components/layout/PageContainer';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
+import { buildBackendUrl } from '../../utils/fileUrlUtils';
 import toast from 'react-hot-toast';
 
 // Helper function to get full image URL
 const getFullImageUrl = (path) => {
   if (!path) return null;
   if (path.startsWith('http')) return path;
-  if (path.startsWith('/uploads')) return `http://localhost:5001${path}`;
+  if (path.startsWith('/uploads')) return buildBackendUrl(path);
   return path;
 };
 

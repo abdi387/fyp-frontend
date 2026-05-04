@@ -9,6 +9,7 @@ import {
 import { useAuth } from '../../context/AuthContext';
 import { useProject } from '../../context/ProjectContext';
 import { formatDate } from '../../utils/dateUtils';
+import { buildBackendUrl } from '../../utils/fileUrlUtils';
 
 const Sidebar = ({ isOpen, onClose, academicYear }) => {
   const { user } = useAuth();
@@ -284,7 +285,7 @@ const Sidebar = ({ isOpen, onClose, academicYear }) => {
                 src={user.profilePicture.startsWith('data:image')
                   ? user.profilePicture
                   : user.profilePicture.startsWith('/uploads')
-                  ? `http://localhost:5001${user.profilePicture}`
+                  ? buildBackendUrl(user.profilePicture)
                   : user.profilePicture}
                 alt={user.name}
                 className="w-10 h-10 rounded-lg object-cover border border-gray-600 shadow-sm"
