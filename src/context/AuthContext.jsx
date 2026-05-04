@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
           // Check if it's a server connection error
           if (error.message?.includes('timeout') || error.code === 'ECONNABORTED' || error.message === 'Network Error') {
             setServerError(true);
-            setAuthError('Cannot connect to server. Please check if backend is running.');
+            setAuthError('Cannot connect to server. Please check that the deployed backend is running.');
             // Keep the stored user for offline display
             setUser(storedUser);
           } else {
@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }) => {
       // Check if it's a server connection error
       if (error.message?.includes('timeout') || error.code === 'ECONNABORTED' || error.message === 'Network Error') {
         setServerError(true);
-        const errorMsg = 'Cannot connect to server. Please make sure the backend server is running on port 5001.';
+        const errorMsg = 'Cannot connect to server. Please make sure the deployed backend server is running.';
         setAuthError(errorMsg);
         return { 
           success: false, 
@@ -111,7 +111,7 @@ export const AuthProvider = ({ children }) => {
       
       if (error.message?.includes('timeout') || error.code === 'ECONNABORTED' || error.message === 'Network Error') {
         setServerError(true);
-        const errorMsg = 'Cannot connect to server. Please make sure the backend server is running.';
+        const errorMsg = 'Cannot connect to server. Please make sure the deployed backend server is running.';
         setAuthError(errorMsg);
         return { 
           success: false, 
@@ -136,7 +136,7 @@ export const AuthProvider = ({ children }) => {
       
       if (error.message?.includes('timeout') || error.code === 'ECONNABORTED') {
         setServerError(true);
-        const errorMsg = 'Server connection lost. Please check if backend is running.';
+        const errorMsg = 'Server connection lost. Please check that the deployed backend is running.';
         setAuthError(errorMsg);
         return { 
           success: false, 

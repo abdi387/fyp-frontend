@@ -15,8 +15,10 @@ import {
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL
+  || (import.meta.env.PROD ? 'https://fyp-backend-cg9b.onrender.com/api' : 'http://localhost:5001/api');
 const TEST_ENDPOINT = `${API_BASE_URL.replace(/\/$/i, '')}/test`;
+const BACKEND_LABEL = API_BASE_URL.replace(/\/api\/?$/i, '');
 
 const ServerStatus = () => {
   const [status, setStatus] = useState('checking');
@@ -56,7 +58,7 @@ const ServerStatus = () => {
       if (error.code === 'ECONNABORTED') {
         setMessage('Connection timeout - server not responding');
       } else if (error.message === 'Network Error') {
-        setMessage('Cannot connect to backend server');
+        setMessage(`Cannot connect to backend server at ${BACKEND_LABEL}`);
       } else if (error.response) {
         setMessage(`Server error: ${error.response.status}`);
       } else {
@@ -182,7 +184,7 @@ const ServerStatus = () => {
                   <div className="mt-3 space-y-2">
                     <div className="flex items-center gap-2 text-xs">
                       <Wifi className="w-3 h-3 opacity-70" />
-                      <span className="opacity-70">localhost:5001</span>
+                      <span className="opacity-70 break-all">{BACKEND_LABEL}</span>
                       {pingTime && (
                         <span className="flex items-center gap-1 ml-auto">
                           <Clock className="w-3 h-3" />
@@ -212,10 +214,10 @@ const ServerStatus = () => {
                           <div className="mt-2 p-3 bg-black/5 rounded-lg space-y-2">
                             <p className="text-xs font-mono">
                               <span className="font-bold block mb-1">📋 Quick Fix:</span>
-                              <span className="block pl-2">1. Open XAMPP and start MySQL</span>
-                              <span className="block pl-2">2. Open terminal and run:</span>
+                              <span className="block pl-2">1. Confirm the Render backend service is live.</span>
+                              <span className="block pl-2">2. Confirm frontend VITE_API_URL points to:</span>
                               <code className="block bg-black/10 p-1.5 rounded mt-1 font-mono text-[10px]">
-                                cd backend && npm run dev
+                                https://fyp-backend-cg9b.onrender.com/api
                               </code>
                             </p>
                             

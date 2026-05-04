@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL
+  || (import.meta.env.PROD ? 'https://fyp-backend-cg9b.onrender.com/api' : '/api');
 
 export const getBackendOrigin = () => {
   if (/^https?:\/\//i.test(API_BASE_URL)) {
