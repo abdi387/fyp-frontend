@@ -129,7 +129,7 @@ const StudentDashboard = () => {
       }
     } else {
       // Semester 1 progression
-      stageName = 'Proposal Submission';
+      stageName = 'Project Title Submission';
       stagePercentage = 40;
 
       if (proposal?.status === 'approved') {
@@ -353,7 +353,7 @@ const StudentDashboard = () => {
         />
         {!isTerminated && (
           <MetricCard
-            title="Proposal"
+            title="Project Title"
             value={proposal ? (proposal.status === 'approved' ? 'Approved' :
                    proposal.status === 'rejected' ? 'Rejected' : 'Pending') :
                    group ? 'Not Submitted' : 'No Group'}
